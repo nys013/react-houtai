@@ -77,7 +77,7 @@ class Role extends Component {
           只是形式不一样，但注意的是最好不要直接更改state，因为setState是会对新旧state进行对比进行render，所以都采用了...运算符*/
           const role = result.data
           this.setState(state =>({
-            roles:[...state.roles,role]
+            roles:[...state.roles , role]
           }))
           /*更新数据方法3*/
           /*const roles = [...this.state.roles]
@@ -115,7 +115,6 @@ class Role extends Component {
       this.setState({
         roles:[...this.state.roles]
       })
-      //this.getRoleList()
 
       // 如果修改的是自己角色的权限，那就重新登录，重新渲染角色权限该有的界面
       if(role._id === this.props.user.role_id ){

@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 
 // 使用redux管理了，就用不到这个了
 // import storage from '../../utils/storageUtils.js'
-// 以下两个是非路由组件，若是有redux的概念就是抽出的UI组件，没有redux，不负责业务逻辑，只是UI展现
+// 以下两个是非路由组件
 import Header from '../../components/header/header.jsx'
 import LeftNav from '../../components/left-nav/left-nav.jsx'
 
@@ -54,7 +54,7 @@ class Main extends Component {
               <Route path='/charts/bar' component={Bar}/>
               <Route path='/charts/line' component={Line}/>
               <Route path='/charts/pie' component={Pie}/>
-              <Route  component={NotFound}/>
+              <Route component={NotFound}/>
             </Switch>
 
           </Content>

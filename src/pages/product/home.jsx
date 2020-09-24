@@ -95,7 +95,7 @@ class Home extends Component {
         render:(product) => {
           return (
             <span >
-              {/*push可以传两个参数，第一个是跳转地址，第二个是传state给目标路由组件*/}
+              {/*push可以传两个参数，第一个是跳转地址，第二个是传state给目标路由组件——location.state*/}
               <LinkButton onClick={() => this.props.history.push('/product/detail' , product )} >详情</LinkButton>
               <LinkButton onClick={() => this.props.history.push('/product/addupdate' , product )}>修改</LinkButton>
             </span>

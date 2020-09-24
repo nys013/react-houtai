@@ -21,7 +21,7 @@ class UpdateForm extends Component {
     const { getFieldDecorator } = this.props.form
     return(
       <Form>
-      <Item>
+        <Item>
           {
             getFieldDecorator("categoryName",{
               initialValue:this.props.categoryName,

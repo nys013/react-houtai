@@ -25,7 +25,7 @@ export default class Category extends Component {
     this.columns = [
       {
         title: '分类名称',
-        dataIndex: 'name'   //列数据在数据项中对应的路径
+        dataIndex: 'name'   //列数据在数据项中对应的名称
         //key: '_id'  设置了唯一的dataIndex可以忽略key
       },
       {
@@ -76,7 +76,7 @@ export default class Category extends Component {
     // this.getCategorts(category._id)
   }
 
-  //获取一级分类列表（因为一开始就获取到了一级分类列表存在state中了，这个时候只需要更新二级相关的state就够了）
+  //回退并获取一级分类列表（因为一开始就获取到了一级分类列表存在state中了，这个时候只需要更新二级相关的state就够了）
   getFirCategory = ()=>{
     this.setState({
       secCategory:[],

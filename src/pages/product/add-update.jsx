@@ -55,11 +55,19 @@ class AddUpdate extends Component {
 
   }
 
+  // 表单验证
   validatorPrice = (rule , value ,callback) =>{
     if(value*1 > 0){
       callback()
     } else {
       callback('价格必须大于0')
+    }
+  }
+  validatorCategorys = (rule , value , callback) =>{
+    if (!value[0]) {
+      callback('商品分类必须选择')
+    } else {
+      callback()
     }
   }
 
@@ -238,7 +246,11 @@ class AddUpdate extends Component {
               {
                 //这是高阶函数
                 this.props.form.getFieldDecorator('categoryIds',{
-                  initialValue:categoryIds
+                  initialValue:categoryIds,
+                  rules:[
+                    {required:true , message:'分类必须选择'},
+                    {validator:this.validatorCategorys}
+                  ]
                 })(
                   <Cascader
                     options={this.state.options}/*需要显示的列表数据*/

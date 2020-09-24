@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
-// 引入路由相关 withRouter是让非路由组件能够有路由组件的三个属性，Link就是跳转组件，设定to的属性值为某一地址，点击跳转（类似于onClick事件触发后this.props.history.push('')
+// 引入路由相关 withRouter是让非路由组件能够有路由组件的三个属性(history,loaction,match)；
+// Link就是跳转组件，设定to的属性值为某一地址，点击跳转（类似于onClick事件触发后this.props.history.push('')
 import {Link,withRouter} from 'react-router-dom'
 import { Menu, Icon } from 'antd';
 import {connect} from 'react-redux'
 
 // 引入样式，虽然antd有默认样式，但是我们还需要根据自己的需求修改
 import './left-nav.less'
-// 图标
-import logo from '../../assets/imgs/logo.png'
 // 封装好的menu相关信息的数组
 import menuList from '../../config/menuConfig.js'
 // 发送设置头部标题的请求（这里是同步的），仅仅是为了将点击的nav-list的标题存到redux中，方便header组件获取
@@ -35,37 +34,8 @@ class LeftNav extends Component {
     return false
   }
 
-  //用map方法遍历写出结构，用了递归调用
-  /*getMenuNodes_map = (menuList)=>{
-    return menuList.map(item=>{
-      if(!item.children){
-        return(
-          <Menu.Item key={item.key} >
-            <Link to={item.key}>
-              <Icon type={item.icon} />
-              <span>{item.title}</span>
-            </Link>
-          </Menu.Item>
-        )
-      }else{
-        return (
-          <SubMenu
-            key={item.key}
-            title={
-              <span>
-                <Icon type={item.icon} />
-                <span>{item.title}</span>
-              </span>
-            }
-            >
-            {this.getMenuNodes_map(item.children)}
-          </SubMenu>
-        )
-      }
-    })
-  }*/
 
-  //用reduce方法将一个个结构加进去,用了递归调用(需要根据数据结构，一层层取出)
+  //用数组reduce方法（map也可）将一个个结构加进去,用了递归调用(需要根据数据结构，一层层取出)
   getMenuNodes_reduce = (menuList)=>{
     return menuList.reduce((pretotal,item)=>{
       const path = this.props.location.pathname
@@ -87,7 +57,7 @@ class LeftNav extends Component {
             </Menu.Item>
           ))
         }else{
-          // 当 当前路径含有子菜单key时，返回该子菜单
+          // 判断 当前路径是否含有子菜单key
           const cItem = item.children.find(cItem => path.indexOf(cItem.key)===0 )
           if(cItem){
             // 如果cItem存在，那么openKey为当前父Item的key(因为要用于展开，原理是当前访问了子菜单，父菜单展开，刷新后依旧展开，那就需要记录当前key)
@@ -116,13 +86,13 @@ class LeftNav extends Component {
   }
 
   /*componentWillMount(){
-    //让他只执行一遍，在render中会重复执行多次
+    //只执行一遍，在render中会重复执行多次
     this.MenuNodes = this.getMenuNodes_reduce(menuList)
   }*/
   /*componentWillMount已经废弃，改用constructor，在第一次render之前执行*/
   constructor(props){
     super(props)
-    //让他只执行一遍，在render中会重复执行多次
+    //在这里只执行一遍。不在render中，因其会重复执行多次
     this.MenuNodes = this.getMenuNodes_reduce(menuList)
   }
   render (){
@@ -130,13 +100,12 @@ class LeftNav extends Component {
     // 重设path，用于selectedKeys，避免到三级路由时selectedKeys无对应值
     path = path.indexOf('/product')===0 ? '/product': path
 
-    const openKey = this.openKey
+    const {openKey,MenuNodes} = this
     return(
       <div className='left-nav' >
 
         <Link to="/" className="left-nav-header">
-          <img src={logo} alt="logo"/>
-          <h1>硅谷后台</h1>
+          <h1>后台管理项目</h1>
         </Link>
 
         <Menu
@@ -148,8 +117,7 @@ class LeftNav extends Component {
           defaultOpenKeys={[openKey]}
           >
           {
-            //this.getMenuNodes_map(menuList)
-            this.MenuNodes
+            MenuNodes
           }
         </Menu>
 
@@ -158,7 +126,7 @@ class LeftNav extends Component {
   }
 }
 
-// 因为一开始没有用redux，所以没有containers的概念，否则应该不在components文件夹下的(不过影响不大，就是个规范问题)
+// 因为一开始没有用redux，所以没有containers的概念，否则应该不在components文件夹下的(不过影响不大，就是个规范问题，但是还是建议在最开始就确定是否使用redux)
 export default connect(
   state => ({user:state.user}),
   {setHeaderTitle}

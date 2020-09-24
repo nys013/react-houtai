@@ -3,7 +3,7 @@
 import React, {Component} from 'react'
 import {Card , Button , Modal , Table ,message} from 'antd'
 
-import LinkButton from '../../components/link-button/index.js'
+import LinkButton from '../../components/link-button'
 import {formateDate} from '../../utils/dateUtils'
 import {reqUserList , reqAddOrUpdateUSer ,reqDeleteUser } from '../../api/index.js'
 import {PAGE_SIZE} from '../../utils/constants'

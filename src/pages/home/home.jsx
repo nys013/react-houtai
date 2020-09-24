@@ -8,7 +8,7 @@ export default class Home extends Component {
           fontSize:80,
           fontWeight:"bold",
           textAlign:"center",
-        }} >欢迎进入硅谷后台</h2>
+        }} >欢迎进入后台管理</h2>
       </div>
     )
   }

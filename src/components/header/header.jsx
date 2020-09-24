@@ -24,7 +24,7 @@ class Header extends Component {
   // 通过循环定时器，1s获取一次当前时间，然后进行格式化后，更新组件状态
   getCurrentTime = ()=>{
     this.intervalId = setInterval(()=>{
-      const currentTime =formateDate(Date.now())
+      const currentTime = formateDate(Date.now())
       this.setState({currentTime})
     },1000)
   }

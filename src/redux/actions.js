@@ -27,7 +27,7 @@ export const login = (username,password) => {
       // 提示登录成功
       message.success('登录成功')
     }else{
-      /*1.直接显示错误信息(在reducer中将msg放入redux了，就在页面显示用自己定义的，不同UI组件了)*/
+      /*1.直接显示错误信息(在reducer中将msg放入redux管理了，就在页面显示用自己定义的，不同UI组件了)*/
       // message.error(result.msg)
       /*2.分发错误action*/
       dispatch(errorMsg(result.msg))

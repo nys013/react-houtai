@@ -41,7 +41,9 @@ class UserForm extends Component {
               initialValue:user.username,
               rules:[
                 {required:true,message:"用户名必须输入"},
-                {min:3,message:"用户名不小于3位"}
+                {min:3,message:"用户名不小于3位"},
+                {max:12,message:"用户名长度不能超过12位"},
+                {pattern:/^[A-z0-9_]+$/,message:"用户名必须以字母、数字或下划线组成"}
               ]
             })(
               <Input placeholder="请输入用户名称"></Input>
